@@ -10,6 +10,10 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+
+	"fmt"
+
+	"github.com/pkg/errors"
 )
 
 type Status string
@@ -32,8 +36,8 @@ type Scorista struct {
 }
 
 type Error struct {
-	Code    uint    `json:"code"`
-	Message string  `json:"message"`
+	Code    uint            `json:"code"`
+	Message string          `json:"message"`
 	Details json.RawMessage `json:"details"`
 }
 
@@ -127,6 +131,10 @@ func (s *Scorista) sendRequest(req *http.Request) ([]byte, error) {
 	result, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return nil, err
+	}
+
+	if response.StatusCode != http.StatusOK {
+		return nil, errors.New(fmt.Sprintf("scorista: request error. body: %s", string(result)))
 	}
 
 	return result, nil
