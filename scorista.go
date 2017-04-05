@@ -10,10 +10,6 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-
-	"fmt"
-
-	"github.com/pkg/errors"
 )
 
 type Status string
@@ -140,7 +136,7 @@ func (s *Scorista) makeRequest(body *bytes.Buffer) (*http.Request, error) {
 	req, err := http.NewRequest(
 		"POST", SCORISTA_END_POINT, body,
 	)
-    req.Close = true
+	req.Close = true
 
 	if err != nil {
 		return nil, err
