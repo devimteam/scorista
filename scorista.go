@@ -145,6 +145,8 @@ func (s *Scorista) makeRequest(body *bytes.Buffer) (*http.Request, error) {
 	req, err := http.NewRequest(
 		"POST", SCORISTA_END_POINT, body,
 	)
+    req.Close = true
+
 	if err != nil {
 		return nil, err
 	}
