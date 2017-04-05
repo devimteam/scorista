@@ -132,11 +132,6 @@ func (s *Scorista) sendRequest(req *http.Request) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	if response.StatusCode != http.StatusOK {
-		return nil, errors.New(fmt.Sprintf("scorista: request error. body: %s", string(result)))
-	}
-
 	return result, nil
 }
 
